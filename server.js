@@ -19,6 +19,9 @@ if (process.env.NODE_ENV === 'production') {
     app.get("*", (req, res) => {
         res.sendFile(path.resolve(__dirname, 'html', 'index.html'));
     })
+} else {
+    console.log("SERVER SET TO DEVELOPMENT. MAKE SURE LINUX ENVIRONMENT IS SET TO PRODUCTION:")
+    console.log("export NODE_ENV=production")
 }
 
 // Start Node server and listen on port
