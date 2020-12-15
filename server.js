@@ -1,8 +1,10 @@
 const express = require("express");
 const path = require("path");
+const http = require('http');
 
 // Setting port
 const port = process.env.PORT || 5000;
+const host = process.env.HOST || "0.0.0.0"
 
 // Start Express Instance
 const app = express();
@@ -15,7 +17,7 @@ app.use(express.json({ limit: '1mb' }));
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
     // Set static folder
-    app.use(express.static("client/build"))
+    app.use(express.static("html"))
     app.get("*", (req, res) => {
         res.sendFile(path.resolve(__dirname, 'html', 'index.html'));
     })
@@ -25,4 +27,4 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Start Node server and listen on port
-app.listen(port, () => console.log("Node Server started on port: " + port))
+http.createServer(app).listen(port, host, () => console.log("Node Server started on port: " + host + ":" + port))
